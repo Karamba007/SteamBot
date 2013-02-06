@@ -241,7 +241,10 @@ namespace SteamBot.Handlers
         public override void HandleTradeClose(Api.ETradeStatus status)
         {
             DoLog(ELogType.WARN, String.Format("Trade Closed: {0}", status));
-            steamFriends.SendChatMessage(currentTrade.otherSid, EChatEntryType.ChatMsg, ":(");
+            if (status == Api.ETradeStatus.TradeCancelled)
+            {
+                steamFriends.SendChatMessage(currentTrade.otherSid, EChatEntryType.ChatMsg, ":(");
+            }
             currentTrade = null;
         }
 
@@ -255,7 +258,7 @@ namespace SteamBot.Handlers
 
         void DoLog(ELogType type, string logString)
         {
-           log.DoLog(type, bot.botConfig.BotName, logString);
+           log.DoLog(type, bot.botConfig.CommandName, logString);
         }
     }
 }

@@ -29,6 +29,11 @@ namespace SteamBot
         public string BotName { get; set; }
 
         /// <summary>
+        /// The name used when running commands as the bot.
+        /// </summary>
+        public string CommandName { get; set; }
+
+        /// <summary>
         /// The SentryFile the bot should use for saving auth codes.
         /// </summary>
         public string SentryFile { get; set; }

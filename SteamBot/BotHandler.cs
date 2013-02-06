@@ -79,12 +79,28 @@ namespace SteamBot
         /// <param name="callback"></param>
         public virtual void OnFriendsPersonaStateUpdate(SteamFriends.PersonaStateCallback callback) { }
 
+        /// <summary>
+        /// This is called when a friend proposes a trade.
+        /// </summary>
+        /// <param name="callback"></param>
         public abstract void OnTradeProposed(SteamTrading.TradeProposedCallback callback);
 
+        /// <summary>
+        /// This is caleld when a trade is accepted by the other client.
+        /// </summary>
+        /// <param name="callback"></param>
         public abstract void OnTradeResult(SteamTrading.TradeResultCallback callback);
 
+        /// <summary>
+        /// This is called when a trade is started.
+        /// </summary>
+        /// <param name="callback"></param>
         public abstract void OnTradingSessionStart(SteamTrading.SessionStartCallback callback);
 
+        /// <summary>
+        /// This is called when a trade is closed.
+        /// </summary>
+        /// <param name="status"></param>
         public abstract void HandleTradeClose(Api.ETradeStatus status);
 
         public Bot bot;

@@ -20,8 +20,10 @@ namespace SteamBot.Runners
         protected StreamWriter fileStream;
 
         protected Dictionary<Thread, Bot> botList;
-        //protected List<Bot> botList;
-        //protected List<Thread> botThreads;
+
+        protected Dictionary<string, Bot> botNameList;
+
+        Thread commandThread;
 
         public void Start (Options options) 
         {
@@ -53,6 +55,7 @@ namespace SteamBot.Runners
                     Password      = botConf.Password,
                     ApiKey        = config.ApiKey,
                     BotName       = botConf.DisplayName,
+                    CommandName   = botConf.CommandName,
                     SentryFile    = botConf.SentryFile,
                     Authenticator = typeof(Trading.Authenticator.SteamUserAuth),
 
@@ -66,14 +69,27 @@ namespace SteamBot.Runners
                 {
                     bot.Start();
                 });
-                //botList.Add(bot);
-                //botThreads.Add(botThread);
+
                 botList.Add(botThread, bot);
+                botNameList.Add(botConfig.CommandName, bot);
                 botThread.Start();
             }
 
+            commandThread = new Thread(() =>
+            {
+                Command command = new Command(new CommandProxy.HttpClient(), "cats");
+                command.Listen(this);
+            });
+
+            commandThread.Start();
+
             Console.CancelKeyPress += HandleShutdown;
 
+        }
+
+        public Bot GetBot(string botName)
+        {
+            return botNameList[botName];
         }
 
         /// <summary>
@@ -95,6 +111,8 @@ namespace SteamBot.Runners
             {
                 botThread.Join();
             }
+
+            commandThread.Abort();
         }
 
         public void DoLog (ELogType type, string log)
@@ -166,6 +184,13 @@ namespace SteamBot.Runners
             [JsonProperty("display_name",
                 Required = Required.Always)]
             public string DisplayName { get; set; }
+
+            /// <summary>
+            /// The name the bot will use when giving the bot commands.
+            /// </summary>
+            [JsonProperty("command_name",
+                Required = Required.Always)]
+            public string CommandName { get; set; }
 
             /// <summary>
             /// The sentry file for bot authentication.

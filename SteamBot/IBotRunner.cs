@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SteamBot
 {
@@ -41,6 +42,13 @@ namespace SteamBot
         /// </summary>
         /// <returns>The steamguard code.</returns>
         string GetSteamGuardCode();
+
+        /// <summary>
+        /// Retrieves the bot based on the name given.
+        /// </summary>
+        /// <param name="botName">The name of the bot.</param>
+        /// <returns>The bot that corresponds to the name or null.</returns>
+        Bot GetBot(string botName);
     }
 }
 

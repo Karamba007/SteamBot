@@ -63,14 +63,18 @@
   <ItemGroup>
     <Compile Include="Bot.cs" />
     <Compile Include="BotConfig.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandHandler\Basic.cs" />
+    <Compile Include="CommandProxy\HttpClient.cs" />
     <Compile Include="Handlers\BasicBotHandler.cs" />
     <Compile Include="BotHandler.cs" />
+    <Compile Include="ICommandHandler.cs" />
+    <Compile Include="ICommandProxy.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="IBotRunner.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Runners\BasicBotRunner.cs" />
-    <Compile Include="SteamBot.cs" />
     <Compile Include="Trading\Api.cs" />
     <Compile Include="Trading\Authenticator\SteamUserAuth.cs" />
     <Compile Include="Trading\IAuthenticator.cs" />
